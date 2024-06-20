@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+message DeviceInfo {
+  int32 id = 1;
+  string name = 2;
+}
+
+enum TouchValue {
+  NONE = 0;
+  LOW = 1;
+  HIGH = 2;
+}
+
+message TouchSensorReading {
+  DeviceInfo device_info = 1;
+  google.protobuf.Timestamp timestamp = 2;
+  TouchValue touch_value = 3;
+}
+
+message GasSensorReading {
+  DeviceInfo device_info = 1;
+  google.protobuf.Timestamp timestamp = 2;
+  int32 gas_value = 3;
+}
+
+message BmeSensorReading {
+  DeviceInfo device_info = 1;
+  google.protobuf.Timestamp timestamp = 2;
+  int32 temperature_value = 3;
+  uint32 pressure_value = 4;
+  int32 humidity_value = 5;
+}
+
+message PhotoRequest {
+  DeviceInfo device_info = 1;
+  google.protobuf.Timestamp timestamp = 2;
+  int32 count = 3;
+}
+
+//protoc --plugin=protoc-gen-nanopb=nanopb/generator-bin/protoc-gen-nanopb --nanopb_out=. messages.proto
